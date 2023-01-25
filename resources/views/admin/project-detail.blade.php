@@ -22,28 +22,22 @@
                                 <tr>
                                     <td>Name</td>
                                     <td>{{ $project->name }}</td>
-                                    <td>Type</td>
-                                    <td>{{ Illuminate\Support\Str::title($project->type) }}</td>
-                                </tr>
-                                <tr>
                                     <td>Comment</td>
                                     <td>{{ $project->comments }}</td>
+                                </tr>
+                                <tr>
+                                    
                                     <td>Late reason</td>
                                     <td>{{ $project->late_reason }}</td>
-                                </tr>
-
-                                <tr>
-
                                     <td>Created at</td>
                                     <td>{{ \carbon\carbon::parse($project->created_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
                                     </td>
-                                    <td>Last updated</td>
-                                    <td>{{ \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
-                                    </td>
                                 </tr>
 
                                 <tr>
-
+                                    <td>Last updated</td>
+                                    <td>{{ \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
+                                    </td>
                                     <td>Active</td>
                                     <td>
                                         @if ($project->is_active != 1)
@@ -51,11 +45,65 @@
                                         @else
                                             <i class="fas fa-check-circle fa-lg" style="color: green"></i>
                                         @endif
-                                    </td>
+                                    </td>                                    
                                 </tr>
                             </table>
                         </div>
 
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="page-title mb-3 font-size-18">Tasks List </h4>
+                            @foreach ($project->tasks as $task)
+                                <table class="table table-striped mb-0">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{ $task->name }}</td>
+                                        <td>Type</td>
+                                        <td>{{ Illuminate\Support\Str::title($task->type) }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Comment</td>
+                                        <td>{{ $task->comments }}</td>
+                                        <td>Late reason</td>
+                                        <td>{{ $task->late_reason }}</td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Created at</td>
+                                        <td>{{ \carbon\carbon::parse($task->created_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
+                                        </td>
+                                        <td>Last updated</td>
+                                        <td>{{ \carbon\carbon::parse($task->updated_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>Active</td>
+                                        <td>
+                                            @if ($task->is_active != 1)
+                                                <i class="fas fa-times-circle fa-lg" style="color: red; "></i>
+                                            @else
+                                                <i class="fas fa-check-circle fa-lg" style="color: green"></i>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </table>
+                                <hr>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <!-- end col -->
@@ -99,7 +147,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="page-title mb-3 font-size-18">Member Details </h4>
+                            <h4 class="page-title mb-3 font-size-18">Member List </h4>
                             <table class="table table-striped mb-0">
                                 @foreach ($project->teams as $team)
                                     @foreach ($team->users as $user)
@@ -107,7 +155,8 @@
                                             <td>Name</td>
                                             @if ($user->is_leader == 1 && $user->role_id == 2)
                                                 <td>
-                                                    {{ $user->name ? $user->name : '' }} <i class="mdi mdi-account-network fa-lg" style="color: green"></i></td>
+                                                    {{ $user->name ? $user->name : '' }} <i
+                                                        class="mdi mdi-account-network fa-lg" style="color: green"></i></td>
                                             @else
                                                 <td>{{ $user->name ? $user->name : '' }}</td>
                                             @endif

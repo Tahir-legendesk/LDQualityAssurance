@@ -8,7 +8,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="page-title mb-0 font-size-18">{{ auth()->user()->name }} panel</h4>
+                        @php
+                            $admin = App\Models\User::with('role')->where('id', auth()->user()->id)->first();                            
+                        @endphp
+                        
+                        <h4 class="page-title mb-0 font-size-18">{{ $admin->role->name }} panel</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -597,13 +601,13 @@
                             <table class="table table-centered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Project Id</th>
-                                        <th scope="col">Project Name</th>
-                                        <th scope="col">Project Type</th>
-                                        <th scope="col">Project RA</th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        {{-- <th scope="col">Project Type</th> --}}
+                                        <th scope="col">RA</th>
                                         <th scope="col">Comments</th>
                                         <th scope="col">Late Reason</th>
-                                        <th scope="col">Last Updated</th>
+                                        <th scope="col" colspan="2">Last Updated</th>
 
                                     </tr>
                                 </thead>
@@ -612,7 +616,7 @@
                                         <tr>
                                             <td>{{ $project->id ? $project->id : '' }}</td>
                                             <td>{{ $project->name ? $project->name : '' }}</td>
-                                            <td>{{ Illuminate\Support\Str::title($project->type) ? Illuminate\Support\Str::title($project->type) : '' }}
+                                            {{-- <td>{{ Illuminate\Support\Str::title($project->type) ? Illuminate\Support\Str::title($project->type) : '' }} --}}
                                             </td>
                                             @foreach ($project->teams as $team)
                                                 @foreach ($team->users as $user)
@@ -628,7 +632,8 @@
                                                 \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
                                             </td>
                                             <td><a href="{{ route('admin.project.detail', $project->id) }}"
-                                                    class="btn btn-primary btn-sm">View</a></td>
+                                                    class="btn btn-primary btn-sm"><i
+                                                        class="bx bxs-show font-size-16 "></i></a></td>
                                         </tr>
                                     @endforeach
 

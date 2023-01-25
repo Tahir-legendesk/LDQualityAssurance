@@ -49,9 +49,9 @@
                                 <tr>
                                     <td>Active</td>
                                     <td>@if ($leaderDetail->is_active != 1)
-                                        <i class="fas fa-circle " style="color: red"></i>
+                                        <i class="fas fa-times-circle fa-lg" style="color: red"></i>
                                        @else
-                                       <i class="fas fa-circle " style="color: green"></i>
+                                       <i class="fas fa-check-circle fa-lg" style="color: green"></i>
                                        @endif</td>
                                     
                                     

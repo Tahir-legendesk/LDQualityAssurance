@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-none d-sm-inline-block">
+                {{-- <div class="dropdown d-none d-sm-inline-block">
                     <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <img class="" src="assets/images/flags/us.jpg" alt="Header Language" height="16">
@@ -57,7 +57,7 @@
                             <span class="align-middle">Russian</span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="dropdown d-none d-lg-inline-block ms-1">
                     <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
@@ -65,7 +65,7 @@
                     </button>
                 </div>
 
-                <div class="dropdown d-inline-block">
+                {{-- <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon waves-effect"
                         id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -156,7 +156,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -196,11 +196,11 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-inline-block">
+                {{-- <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                         <i class="mdi mdi-settings-outline"></i>
                     </button>
-                </div>
+                </div> --}}
 
             </div>
             <div>
@@ -220,7 +220,7 @@
                             <img src="assets/images/logo-sm.png" alt="" height="20">
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/logo-light.png" alt="" height="19">
+                            <img src="assets/images/logo-light.png" alt="" height="50">
                         </span>
                     </a>
                 </div>
@@ -238,7 +238,7 @@
                     </div>
                 </form>
 
-                <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
+                {{-- <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
                     <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
                         aria-haspopup="false" aria-expanded="false">
                         Mega Menu
@@ -408,7 +408,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> --}}
             </div>
 
         </div>

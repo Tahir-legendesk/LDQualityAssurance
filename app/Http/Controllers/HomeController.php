@@ -51,10 +51,10 @@ class HomeController extends Controller
 
     public function projectDetail($id)
     {
-        $project = Project::with(['teams'=> function ($q) {
+        $project = Project::with(['tasks','teams'=> function ($q) {
             $q->with('users');
         }])->find($id);
-        // dd($projects);
+        // dd($project);
         // $project = Project::;
         return view('admin.project-detail', get_defined_vars());
     }
