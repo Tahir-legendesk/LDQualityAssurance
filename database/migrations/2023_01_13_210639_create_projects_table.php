@@ -16,7 +16,10 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->enum('status',['IN_PROGRESS','COMPLETED','CANCELLED']);
+            $table->enum('type',['NEW','REVAMP','REDESIGN','INNER_PAGES','REVISION']);
+            $table->longText('comments')->nullable();
+            $table->longText('late_reason')->nullable();
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

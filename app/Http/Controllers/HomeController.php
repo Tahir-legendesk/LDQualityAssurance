@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alert;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 // use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,35 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $projects = Project::with(['teams' => function ($q) {
+            $q->with('users', function ($q) {
+                $q->where('role_id', 2)
+                    ->where('is_leader', true);
+            });
+        }])->get();
+
+        // dd($projects);
+        $new = $projects->where('type', 'NEW')->count();
+
+        $revamp = $projects->where('type', 'REVAMP')->count();
+
+        $redesign = $projects->where('type', 'REDESIGN')->count();
+
+        $innerPages = $projects->where('type', 'INNER_PAGES')->count();
+
+        $revision = $projects->where('type', 'REVISION')->count();
+        // dd($new);
+        return view('admin.dashboard', get_defined_vars());
+    }
+
+    public function projectDetail($id)
+    {
+        $project = Project::with(['teams'=> function ($q) {
+            $q->with('users');
+        }])->find($id);
+        // dd($projects);
+        // $project = Project::;
+        return view('admin.project-detail', get_defined_vars());
     }
 
     public function leader()
@@ -57,16 +86,18 @@ class HomeController extends Controller
         return view('admin.leader.edit', get_defined_vars());
     }
 
-    public function leaderDelete($id){
+    public function leaderDelete($id)
+    {
 
         $leaderEdit = User::find($id);
         $leaderEdit->delete();
         Alert::warning('Congrats', "You've Successfully delete Leader");
         $leaders = User::whereHas('team')->where('role_id', 2)->where('is_leader', true)->get();
-        return view('admin.leader.index',get_defined_vars());
+        return view('admin.leader.index', get_defined_vars());
     }
 
-    public function leaderUpdate(Request $request,$id){
+    public function leaderUpdate(Request $request, $id)
+    {
         // dd($request->all());
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -95,7 +126,7 @@ class HomeController extends Controller
         $leaderUpdate->address = $request->address;
         $leaderUpdate->is_active = $isActive ? 1 : 0;
         $leaderUpdate->is_leader = 1;
-        $leaderUpdate->updated_at=now();
+        $leaderUpdate->updated_at = now();
         // $leaderUpdate->save();
         if ($leaderUpdate->save()) {
             Alert::success('Congrats', "You've Successfully update Leader");
@@ -133,7 +164,7 @@ class HomeController extends Controller
         $leader->address = $request->address;
         $leader->is_active = $isActive ? 1 : 0;
         $leader->is_leader = 1;
-        $leader->created_at=now();
+        $leader->created_at = now();
         // $leader->save();
         if ($leader->save()) {
             Alert::success('Congrats', "You've Successfully create Leader");

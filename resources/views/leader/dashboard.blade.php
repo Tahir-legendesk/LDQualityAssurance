@@ -1,236 +1,110 @@
-@extends('layouts.master-layout')
-@section('content')
-    <div class="main-content">
+@extends("layouts.master-layout")
+@section("content")
+<div class="main-content">
 
-        <div class="page-content">
+    <div class="page-content mt-5">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="page-title mb-0 font-size-18">{{ auth()->user()->name }} panel</h4>
+        <!-- start page title -->
+        {{-- <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">Dashboard</h4>
 
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item active">Welcome to {{ config('app.name', 'Laravel') }}</li>
-                            </ol>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item active">Welcome to Qovex Dashboard</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div class="avatar-sm font-size-20 me-3">
+                                <span class="avatar-title bg-soft-primary text-primary rounded">
+                                    <i class="mdi mdi-tag-plus-outline"></i>
+                                </span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-size-16 mt-2">New Orders</div>
+                            </div>
                         </div>
+                        <h4 class="mt-4">1,368</h4>
+                        <div class="row">
+                            <div class="col-7">
+                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
+                                            class="mdi mdi-arrow-up"></i> </span></p>
+                            </div>
+                            <div class="col-5 align-self-center">
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div class="avatar-sm font-size-20 me-3">
+                                <span class="avatar-title bg-soft-primary text-primary rounded">
+                                    <i class="mdi mdi-account-multiple-outline"></i>
+                                </span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-size-16 mt-2">New Users</div>
 
+                            </div>
+                        </div>
+                        <h4 class="mt-4">2,456</h4>
+                        <div class="row">
+                            <div class="col-7">
+                                <p class="mb-0"><span class="text-success me-2"> 0.16% <i
+                                            class="mdi mdi-arrow-up"></i> </span></p>
+                            </div>
+                            <div class="col-5 align-self-center">
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
 
-            <div class="row">
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fas fa-file-alt"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Projects</div>
-                                </div>
-                                <h4 class="mt-4">{{ $projects->count() }}</h4>
-                            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Sales Report</h4>
 
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
+                        <div id="line-chart" class="apex-charts"></div>
                     </div>
                 </div>
-
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total New Projects</div>
-
-                                </div>
-                                <h4 class="mt-4">{{ $new }}</h4>
-                            </div>
-
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="far fa-dot-circle"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Inner Pages</div>
-                                </div>
-                                <h4 class="mt-4">{{ $innerPages }}</h4>
-                            </div>
-
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fab fa-rev"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Revisions Projects</div>
-                                </div>
-                                <h4 class="mt-4">{{ $revision }}</h4>
-                            </div>
-
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
             </div>
 
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Revenue</h4>
 
-            <!-- end page title -->
-
-            <div class="row">
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fas fa-file-signature"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Redesign Projects</div>
-                                </div>
-                                <h4 class="mt-4">{{ $redesign }}</h4>
-                            </div>
-
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
+                        <div id="column-chart" class="apex-charts"></div>
                     </div>
                 </div>
-
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fas fa-tools"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Revamp Projects</div>
-                                </div>
-                                <h4 class="mt-4">{{ $revamp }}</h4>
-                            </div>
-
-                            {{-- <div class="row">
-                            <div class="col-7">
-                                <p class="mb-0"><span class="text-success me-2"> 0.28% <i
-                                            class="mdi mdi-arrow-up"></i> </span></p>
-                            </div>
-                            <div class="col-5 align-self-center">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-primary" role="progressbar"
-                                        style="width: 62%" aria-valuenow="62" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
-            <!-- end row -->
+        </div>
+        <!-- end row -->
 
-            {{-- <div class="row">
+        <div class="row">
             <div class="col-xl-5">
                 <div class="card">
                     <div class="card-body">
@@ -306,10 +180,10 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
-            <!-- end row -->
+        </div>
+        <!-- end row -->
 
-            {{-- <div class="row">
+        <div class="row">
             <div class="col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -501,11 +375,11 @@
                     </div>
                 </div>
             </div>
-        </div>  --}}
-            <!-- end row -->
+        </div> --}}
+        <!-- end row -->
 
-            {{-- <div class="row">
-             <div class="col-xl-4">
+        <div class="row">
+            {{-- <div class="col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Inbox</h4>
@@ -591,52 +465,71 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Projects Detail</h4>
+                        <h4 class="card-title mb-4">Latest Transactions</h4>
 
                         <div class="table-responsive">
                             <table class="table table-centered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Project Id</th>
-                                        <th scope="col">Project Name</th>
-                                        <th scope="col">Project Type</th>
-                                        <th scope="col">Project RA</th>
-                                        <th scope="col">Comments</th>
-                                        <th scope="col">Late Reason</th>
-                                        <th scope="col">Last Updated</th>
-
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Id no.</th>
+                                        <th scope="col">Billing Name</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col" colspan="2">Payment Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($projects as $project)
-                                        <tr>
-                                            <td>{{ $project->id ? $project->id : '' }}</td>
-                                            <td>{{ $project->name ? $project->name : '' }}</td>
-                                            <td>{{ Illuminate\Support\Str::title($project->type) ? Illuminate\Support\Str::title($project->type) : '' }}
-                                            </td>
-                                            @foreach ($project->teams as $team)
-                                                @foreach ($team->users as $user)
-                                                    <td>{{ $user->name ? $user->name : '' }}</td>
-                                                @endforeach
-                                            @endforeach
-
-                                            <td>{{ \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') : '' }}
-                                            </td>
-                                            <td>{{ \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : '' }}
-                                            </td>
-                                            <td>{{ // $project->updated_at->format('d-M-Y') ? $project->updated_at->format('d-M-Y') : '' .
-                                                \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
-                                            </td>
-                                            <td><a href="{{ route('admin.project.detail', $project->id) }}"
-                                                    class="btn btn-primary btn-sm">View</a></td>
-                                        </tr>
-                                    @endforeach
-
+                                    <tr>
+                                        <td>15/01/2020</td>
+                                        <td>
+                                            <a href="#" class="text-body fw-medium">#SK1235</a>
+                                        </td>
+                                        <td>Werner Berlin</td>
+                                        <td>$ 125</td>
+                                        <td><span class="badge badge-soft-success font-size-12">Paid</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>16/01/2020</td>
+                                        <td>
+                                            <a href="#" class="text-body fw-medium">#SK1236</a>
+                                        </td>
+                                        <td>Robert Jordan</td>
+                                        <td>$ 118</td>
+                                        <td><span
+                                                class="badge badge-soft-danger font-size-12">Chargeback</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>17/01/2020</td>
+                                        <td>
+                                            <a href="#" class="text-body fw-medium">#SK1237</a>
+                                        </td>
+                                        <td>Daniel Finch</td>
+                                        <td>$ 115</td>
+                                        <td><span class="badge badge-soft-success font-size-12">Paid</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18/01/2020</td>
+                                        <td>
+                                            <a href="#" class="text-body fw-medium">#SK1238</a>
+                                        </td>
+                                        <td>James Hawkins</td>
+                                        <td>$ 121</td>
+                                        <td><span
+                                                class="badge badge-soft-warning font-size-12">Refund</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        {{-- <div class="mt-3">
+                        <div class="mt-3">
                             <ul class="pagination pagination-rounded justify-content-center mb-0">
                                 <li class="page-item">
                                     <a class="page-link" href="#">Previous</a>
@@ -646,16 +539,16 @@
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                             </ul>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- end row -->
-        @include('../includes/footer')
+        
     </div>
     <!-- End Page-content -->
+    @include('../includes/footer')
 
-
-    </div>
+</div>
 @endsection

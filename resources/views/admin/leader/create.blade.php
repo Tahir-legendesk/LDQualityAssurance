@@ -83,7 +83,7 @@
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-md-2 col-form-label">Phone</label>
                                     <div class="col-md-4">
-                                        <input class="form-control" type="tel" name="phone" placeholder="+99999999999"
+                                        <input class="form-control" type="number" name="phone" placeholder="+99999999999"
                                             id="example-text-input">
                                         <ul class="parsley-errors-list filled" id="parsley-id-39">
                                             <li class="parsley-required">

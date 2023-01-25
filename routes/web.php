@@ -32,6 +32,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/leader/{id}/edit', [HomeController::class, 'leaderEdit'])->name('admin.leader.edit');
     Route::post('/admin/leader/{id}/update', [HomeController::class, 'leaderUpdate'])->name('admin.leader.update');
     Route::get('/admin/leader/{id}/delete', [HomeController::class, 'leaderDelete'])->name('admin.leader.delete');
+    
+    //Project detail
+    Route::get('/admin/project/{id}/detail', [HomeController::class, 'projectDetail'])->name('admin.project.detail');
+
 
 
 

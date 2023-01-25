@@ -42,7 +42,7 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-flip-horizontal"></i>
                         <span>Layouts</span>
@@ -236,7 +236,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
         </div>
