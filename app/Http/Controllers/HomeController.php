@@ -51,7 +51,7 @@ class HomeController extends Controller
 
     public function projectDetail($id)
     {
-        $project = Project::with(['tasks','teams'=> function ($q) {
+        $project = Project::with(['tasks', 'teams' => function ($q) {
             $q->with('users');
         }])->find($id);
         // dd($project);
@@ -65,6 +65,20 @@ class HomeController extends Controller
         $leaders = User::whereHas('team')->where('role_id', 2)->where('is_leader', true)->get();
         // dd($leaders);
         return view('admin.leader.index', get_defined_vars());
+    }
+
+    public function leaderSearch(Request $request)
+    {
+       
+        if ((string)$request->keyword == 'all_data' ) {
+            $leaders = User::with('team')->where('role_id', 2)->where('is_leader', true)->get();
+        }else{
+            $leaders = User::with('team')->where('name', 'LIKE', '%' . $request->keyword . '%')->where('is_leader', true)->get();
+        }
+
+        return response()->json([
+            'leaders' => $leaders,
+        ]);
     }
 
     public function leaderCreate()

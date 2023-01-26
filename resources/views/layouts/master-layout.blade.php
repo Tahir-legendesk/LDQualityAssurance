@@ -22,6 +22,7 @@
 
     </div>
     @include('../includes/scripts')
+    @yield('custom_script')
 </body>
 
 </html>

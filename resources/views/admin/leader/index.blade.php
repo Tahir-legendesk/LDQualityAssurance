@@ -20,9 +20,22 @@
                         <div class="card-body table-head">
 
                             <div class="button-items text-end mb-1">
-                                <a href="{{ route('admin.leader.create') }}" class="col-md-2 btn btn-outline-primary waves-effect">
-                                    <i class="mdi mdi-account-plus font-size-16 align-middle"></i> Create Leader
-                                </a>
+                                <div class="custom-title d-flex align-items-center justify-content-between ">
+
+                                    <form class="app-search" method="post" action="#">
+                                        <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
+                                        <div class="position-relative ">
+                                            <input type="text" class="form-control text-dark border"
+                                                placeholder="Search..." id="search" onkeyup="live_search()">
+                                            <span class="bx bx-search-alt text-dark"></span>
+                                        </div>
+                                    </form>
+                                    <a href="{{ route('admin.leader.create') }}"
+                                        class="col-md-2 btn btn-outline-primary waves-effect">
+                                        <i class="mdi mdi-account-plus font-size-16 align-middle"></i> Create Leader
+                                    </a>
+                                </div>
+
                             </div>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
@@ -58,19 +71,19 @@
                                                         class="btn btn-outline-warning waves-effect">
                                                         <i class="bx bxs-show font-size-16 "></i>
                                                     </a>
-                                                    
-                                                        
-                                                        <a href="{{ route('admin.leader.edit', $leader->id) }}"
-                                                            class="btn btn-outline-success waves-effect">
-                                                            <i class="bx bxs-pencil font-size-16 "></i>
-                                                        </a>
-                                                    
-                                                    
-                                                        <a href="{{ route('admin.leader.delete', $leader->id) }}"
-                                                            class="btn btn-outline-danger waves-effect">
-                                                            <i class="bx bxs-trash font-size-16 "></i>
-                                                        </a>
-                                                    
+
+
+                                                    <a href="{{ route('admin.leader.edit', $leader->id) }}"
+                                                        class="btn btn-outline-success waves-effect">
+                                                        <i class="bx bxs-pencil font-size-16 "></i>
+                                                    </a>
+
+
+                                                    <a href="{{ route('admin.leader.delete', $leader->id) }}"
+                                                        class="btn btn-outline-danger waves-effect">
+                                                        <i class="bx bxs-trash font-size-16 "></i>
+                                                    </a>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -90,4 +103,10 @@
 
         @include('../includes/footer')
     </div>
+
+
+
+
+
 @endsection
+ 

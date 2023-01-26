@@ -38,7 +38,7 @@
                 <li>
                     <a href="{{route('admin.leader')}}" class=" waves-effect">
                         <i class="mdi mdi-account-network"></i>
-                        <span>Manage Leader</span>
+                        <span>Manage Leader's</span>
                     </a>
                 </li>
 

@@ -26,6 +26,8 @@ Auth::routes();
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/leader', [HomeController::class, 'leader'])->name('admin.leader');
+    Route::post('/admin/leader/search',[HomeController::class,'leaderSearch'])->name('leader.search');
+
     Route::get('/admin/leader/create', [HomeController::class, 'leaderCreate'])->name('admin.leader.create');
     Route::post('/admin/leader/store', [HomeController::class, 'leaderStore'])->name('admin.leader.store');
     Route::get('/admin/leader/{id}/detail', [HomeController::class, 'leaderShow'])->name('admin.leader.show');

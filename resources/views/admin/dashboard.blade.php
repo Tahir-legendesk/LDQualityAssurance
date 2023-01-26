@@ -594,8 +594,25 @@
 
             <div class="col-xl-12">
                 <div class="card">
+                    {{-- <form class="app-search d-none d-lg-inline-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="bx bx-search-alt" style="color: black;"></span>
+                        </div>
+                    </form> --}}
+                    
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Projects Detail</h4>
+                        <div class="custom-title d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">Projects Detail</h4>
+                            <form class="app-search">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control text-dark border" placeholder="Search...">
+                                    <span class="bx bx-search-alt text-dark"></span>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        
 
                         <div class="table-responsive">
                             <table class="table table-centered">
