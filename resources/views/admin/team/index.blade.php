@@ -1,14 +1,13 @@
 @extends('layouts.master-layout')
 @section('content')
     <div class="main-content">
-
         <div class="page-content">
 
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="page-title mb-0 font-size-18">leader's management</h4>
+                        <h4 class="page-title mb-0 font-size-18">team's management</h4>
                     </div>
                 </div>
             </div>
@@ -19,9 +18,9 @@
                     <div class="card">
                         <div class="card-body table-head">
                             <div class="button-items text-end mb-1">
-                                <a href="{{ route('admin.leader.create') }}"
+                                <a href="{{ route('admin.team.create') }}"
                                     class="col-md-2 btn btn-outline-primary waves-effect">
-                                    <i class="mdi mdi-account-plus font-size-16 align-middle"></i> Create Leader
+                                    <i class="fas fa-users font-size-16 align-middle"></i> Create Team
                                 </a>
                             </div>
 
@@ -30,40 +29,40 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Team Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Gender</th>
-                                        <th>Age</th>
-                                        <th>Address</th>
+                                        <th>Total Members</th>
+                                        <th>Total Projects</th>
+                                        <th>Active</th>
+                                        <th>Created At</th>
+                                        <th>Last Updated</th>
                                         <th>Operations</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($leaders as $leader)
+                                    @foreach ($teams as $team)
                                         <tr>
-                                            <td>{{ $leader->name }}</td>
-                                            <td>{{ $leader->team->name }}</td>
-                                            <td>{{ $leader->email }}</td>
-                                            <td>{{ $leader->phone }}</td>
-                                            <td>{{ Illuminate\Support\Str::title($leader->gender) }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($leader->dob)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
-                                            <td>{{ \Illuminate\Support\Str::limit($leader->address, 50, $end = '....') }}
+                                            <td>{{ Illuminate\Support\Str::title($team->name) }}</td>
+                                            <td>{{ $team->users_count }}</td>
+                                            <td>{{ $team->projects_count }}</td>
+                                            <td>
+                                                @if ($team->is_active != 1)
+                                                    <i class="fas fa-times-circle fa-lg" style="color: red"></i>
+                                                @else
+                                                    <i class="fas fa-check-circle fa-lg" style="color: green"></i>
+                                                @endif
                                             </td>
+                                            <td>{{ \Carbon\Carbon::parse($team->created_at)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($team->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
+                                            {{-- {{dd($team->updated_at)}} --}}
                                             <td>
                                                 <div class="button-items">
-                                                    <a href="{{ route('admin.leader.show', $leader->id) }}"
-                                                        class="btn btn-outline-warning waves-effect">
-                                                        <i class="bx bxs-show font-size-16 "></i>
-                                                    </a>
 
-                                                    <a href="{{ route('admin.leader.edit', $leader->id) }}"
+                                                    <a href="{{ route('admin.team.edit', $team->id) }}"
                                                         class="btn btn-outline-success waves-effect">
                                                         <i class="bx bxs-pencil font-size-16 "></i>
                                                     </a>
 
-                                                    <a href="{{ route('admin.leader.delete', $leader->id) }}"
+                                                    <a href="{{ route('admin.team.delete', $team->id) }}"
                                                         class="btn btn-outline-danger waves-effect">
                                                         <i class="bx bxs-trash font-size-16 "></i>
                                                     </a>

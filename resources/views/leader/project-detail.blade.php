@@ -66,16 +66,18 @@
                             @foreach ($project->tasks as $task)
                                 <table class="table table-striped mb-0">
                                     <tr>
-                                        <td>Id</td>
+                                        <td>Task Id</td>
                                         <td>{{ $task->id }}</td>
                                         <td>Name</td>
                                         <td>{{ $task->name }}</td>
+
                                     </tr>
                                     <tr>
                                         <td>Type</td>
                                         <td>{{ Illuminate\Support\Str::title($task->type) }}</td>
                                         <td>Comment</td>
                                         <td>{{ $task->comments }}</td>
+                                        
                                     </tr>
 
                                     <tr>
@@ -84,6 +86,7 @@
                                         <td>Created at</td>
                                         <td>{{ \carbon\carbon::parse($task->created_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
                                         </td>
+                                        
                                     </tr>
 
                                     <tr>
@@ -169,7 +172,7 @@
                             </table>
                         </div>
                         <div class="col-md-12 button-items text-end mb-1">
-                            <a href="{{ route('admin.dashboard') }}" class="col-md-2 btn btn-outline-secondary waves-effect">
+                            <a href="{{ route('leader.dashboard') }}" class="col-md-2 btn btn-outline-secondary waves-effect">
                                 Back
                             </a>
                         </div>

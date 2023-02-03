@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -13,7 +15,9 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return view('admin.team.index');
+        $teams = Team::with('users', 'projects')->withCount('users', 'projects')->get();
+        // dd($teams);
+        return view('admin.team.index', get_defined_vars());
     }
 
     /**
@@ -23,7 +27,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.team.create');
     }
 
     /**
@@ -34,7 +38,30 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return view('admin.team.create');
+        // return view('admin.team.')
+        // dd($request->all());
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        if (!$request->is_active) {
+
+            $isActive = $request->is_active;
+        } else {
+            $isActive = $request->is_active;
+        }
+        // dd($request->all());
+        $team = new Team();
+        $team->name = $request->name;
+        $team->is_active = $isActive ? 1 : 0;
+        $team->created_at = now();
+        $team->updated_at = null;
+        // $team->save();
+        if ($team->save()) {
+            Alert::success('Congrats', "You've Successfully Create " . $request->name . " Team");
+            return redirect('admin/teams');
+        }
     }
 
     /**
@@ -56,7 +83,8 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $team = Team::find($id);
+        return view('admin.team.edit', get_defined_vars());
     }
 
     /**
@@ -68,7 +96,26 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        if (!$request->is_active) {
+
+            $isActive = $request->is_active;
+        } else {
+            $isActive = $request->is_active;
+        }
+        // dd($request->all());
+        $team = Team::find($id);
+        $team->name = $request->name;
+        $team->is_active = $isActive ? 1 : 0;
+        $team->updated_at = now();
+        // $team->save();
+        if ($team->save()) {
+            Alert::success('Congrats', "You've Successfully Update " . $request->name . " Team");
+            return redirect('admin/teams');
+        }
     }
 
     /**
@@ -79,6 +126,9 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $leaderEdit = Team::find($id);
+        $leaderEdit->delete();
+        Alert::warning('Congrats', "You've Successfully Delete Team");
+        return redirect('admin/teams');
     }
 }

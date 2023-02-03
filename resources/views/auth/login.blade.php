@@ -6,9 +6,6 @@
 </head>
 
 <body>
-    <div class="home-btn d-none d-sm-block">
-        <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
-    </div>
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -18,9 +15,10 @@
                             <div class="bg-login-overlay"></div>
                             <div class="position-relative">
                                 <h5 class="text-white font-size-20">Welcome Back !</h5>
-                                <p class="text-white-50 mb-0">Sign in to continue to Qovex.</p>
-                                <a href="index.html" class="logo logo-admin mt-4">
-                                    <img src="assets/images/logo-sm-dark.png" alt="" height="30">
+                                <p class="text-white-50 mb-0">
+                                    {{ config('app.name', 'Laravel') }}</p>
+                                <a href="#" class="logo logo-admin mt-4">
+                                    <img src="assets/images/logo-light.png" alt="" height="30">
                                 </a>
                             </div>
                         </div>
@@ -54,13 +52,6 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customControlInline">
-                                        <label class="form-check-label" for="customControlInline">Remember
-                                            me</label>
-                                            
-                                    </div> --}}
-
                                     <div class="mt-3">
                                         <button type="submit" class="btn btn-primary w-100 waves-effect waves-light">
                                             {{ __('Login') }}
@@ -80,44 +71,38 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-                        <p>Don't have an account ?</p>
+
 
                         <ul class="navbar-nav ms-auto">
                             <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('SignUp') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
-                                        role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{-- {{ Auth::user()->name }} --}}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                            @endguest
                         </ul>
                         <p>©
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Qovex. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                            Themesbrand
+                            </script> {{ config('app.name', 'Laravel') }} Crafted with <i
+                                class="mdi mdi-heart text-danger"></i> by
+                            Legendesk
                         </p>
                     </div>
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,6 +23,17 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        if (Auth::user()->role_id == 1) {
+            return redirect('/admin/dashboard');
+        } elseif (Auth::user()->role_id == 2) {
+            return redirect('/leader/dashboard');
+        } else {
+            return redirect('/member/dashboard');
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -28,23 +41,24 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
+        // dd(Hash::make('12345678'));
         $projects = Project::with(['teams' => function ($q) {
             $q->with('users', function ($q) {
                 $q->where('role_id', 2)
                     ->where('is_leader', true);
             });
         }])->get();
-
+        $tasks = Task::get();
         // dd($projects);
-        $new = $projects->where('type', 'NEW')->count();
+        $new = $tasks->where('type', 'NEW')->count();
 
-        $revamp = $projects->where('type', 'REVAMP')->count();
+        $revamp = $tasks->where('type', 'REVAMP')->count();
 
-        $redesign = $projects->where('type', 'REDESIGN')->count();
+        $redesign = $tasks->where('type', 'REDESIGN')->count();
 
-        $innerPages = $projects->where('type', 'INNER_PAGES')->count();
+        $innerPages = $tasks->where('type', 'INNER_PAGES')->count();
 
-        $revision = $projects->where('type', 'REVISION')->count();
+        $revision = $tasks->where('type', 'REVISION')->count();
         // dd($new);
         return view('admin.dashboard', get_defined_vars());
     }
@@ -67,19 +81,19 @@ class HomeController extends Controller
         return view('admin.leader.index', get_defined_vars());
     }
 
-    public function leaderSearch(Request $request)
-    {
-       
-        if ((string)$request->keyword == 'all_data' ) {
-            $leaders = User::with('team')->where('role_id', 2)->where('is_leader', true)->get();
-        }else{
-            $leaders = User::with('team')->where('name', 'LIKE', '%' . $request->keyword . '%')->where('is_leader', true)->get();
-        }
+    // public function leaderSearch(Request $request)
+    // {
 
-        return response()->json([
-            'leaders' => $leaders,
-        ]);
-    }
+    //     if ((string)$request->keyword == 'all_data' ) {
+    //         $leaders = User::with('team')->where('role_id', 2)->where('is_leader', true)->get();
+    //     }else{
+    //         $leaders = User::with('team')->where('name', 'LIKE', '%' . $request->keyword . '%')->where('is_leader', true)->get();
+    //     }
+
+    //     return response()->json([
+    //         'leaders' => $leaders,
+    //     ]);
+    // }
 
     public function leaderCreate()
     {
@@ -103,11 +117,11 @@ class HomeController extends Controller
     public function leaderDelete($id)
     {
 
-        $leaderEdit = User::find($id);
-        $leaderEdit->delete();
+        $leaderDelete = User::find($id);
+        $leaderDelete->delete();
         Alert::warning('Congrats', "You've Successfully delete Leader");
-        $leaders = User::whereHas('team')->where('role_id', 2)->where('is_leader', true)->get();
-        return view('admin.leader.index', get_defined_vars());
+        // $leaders = User::whereHas('team')->where('role_id', 2)->where('is_leader', true)->get();
+        return redirect('/admin/leader');
     }
 
     public function leaderUpdate(Request $request, $id)
@@ -115,7 +129,7 @@ class HomeController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required',
             'password' => 'required|string|min:8',
             'phone' => 'required|numeric',
             'address' => 'required',

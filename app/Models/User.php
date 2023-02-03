@@ -58,6 +58,7 @@ class User extends Authenticatable
 
     public function scopeIsLeader($query)
     {
-        return $query->where('is_leader', true);
+        return $query->where('is_leader', true)
+            ->where('role_id', 2);
     }
 }

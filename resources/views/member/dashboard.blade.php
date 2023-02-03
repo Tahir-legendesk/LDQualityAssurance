@@ -38,10 +38,9 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Leader Total Projects</div>
+                                    <div class="font-size-16 mt-2">Total Projects</div>
                                 </div>
-                                {{-- {{ dd($leaderProjects->team) }} --}}
-                                <h4 class="mt-4">{{ $leaderProjects->team->projects_count }}</h4>
+                                {{-- <h4 class="mt-4">{{ $projects->count() }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -57,11 +56,10 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total New Tasks</div>
+                                    <div class="font-size-16 mt-2">Total New Projects</div>
 
                                 </div>
-                                {{-- {{dd($leaderNewProjects->team->projects->tasks)}} --}}
-                                <h4 class="mt-4">{{ $leaderNewTasks }}</h4>
+                                {{-- <h4 class="mt-4">{{ $new }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -77,9 +75,9 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Inner Pages Tasks</div>
+                                    <div class="font-size-16 mt-2">Total Inner Pages</div>
                                 </div>
-                                <h4 class="mt-4">{{ $leaderInnerPagesTasks }}</h4>
+                                {{-- <h4 class="mt-4">{{ $innerPages }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -95,9 +93,9 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Revisions Tasks</div>
+                                    <div class="font-size-16 mt-2">Total Revisions Projects</div>
                                 </div>
-                                <h4 class="mt-4">{{ $leaderRevisionTasks }}</h4>
+                                {{-- <h4 class="mt-4">{{ $revision }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -114,9 +112,9 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Redesign Tasks</div>
+                                    <div class="font-size-16 mt-2">Total Redesign Projects</div>
                                 </div>
-                                <h4 class="mt-4">{{ $leaderRedesignTasks }}</h4>
+                                {{-- <h4 class="mt-4">{{ $redesign }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -132,9 +130,9 @@
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total Revamp Tasks</div>
+                                    <div class="font-size-16 mt-2">Total Revamp Projects</div>
                                 </div>
-                                <h4 class="mt-4">{{ $leaderRevampTasks }}</h4>
+                                {{-- <h4 class="mt-4">{{ $revamp }}</h4> --}}
                             </div>
                         </div>
                     </div>
@@ -153,42 +151,37 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
+                                        <th>RA</th>
                                         <th>Comments</th>
                                         <th>Late Reason</th>
-                                        <th>Created At</th>
                                         <th>Last Updated</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
 
-                                {{-- {{dd($leaderProjects)}} --}}
-                                <tbody>
-                                    @foreach ($leaderProjects->team->projects as $leaderProject)
-                                    {{-- {{dd($leaderProjects->team->projects)}} --}}
+                                {{-- <tbody>
+                                    @foreach ($projects as $project)
                                         <tr>
-                                            <td>{{ $leaderProject->id ? $leaderProject->id : '' }}</td>
-                                            <td>{{ $leaderProject->name ? $leaderProject->name : '' }}</td>
+                                            <td>{{ $project->id ? $project->id : '' }}</td>
+                                            <td>{{ $project->name ? $project->name : '' }}</td>
                                             </td>
-                                            {{-- @foreach ($project->teams as $team)
+                                            @foreach ($project->teams as $team)
                                                 @foreach ($team->users as $user)
                                                     <td>{{ $user->name ? $user->name : '' }}</td>
                                                 @endforeach
-                                            @endforeach --}}
-                                            <td>{{ \Illuminate\Support\Str::limit($leaderProject->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($leaderProject->comments, 20, $end = '....') : '' }}
+                                            @endforeach
+                                            <td>{{ \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') : '' }}
                                             </td>
-                                            <td>{{ \Illuminate\Support\Str::limit($leaderProject->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($leaderProject->late_reason, 20, $end = '....') : '' }}
+                                            <td>{{ \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : '' }}
                                             </td>
-                                            {{-- {{dd($leaderProject->updated_at)}} --}}
-                                            <td>{{ \carbon\carbon::parse($leaderProject->created_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
+                                            <td>{{ \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
                                             </td>
-                                            <td>{{ \carbon\carbon::parse($leaderProject->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
-                                            </td>
-                                            <td><a href="{{ route('leader.project.detail', $leaderProject->id) }}"
+                                            <td><a href="{{ route('admin.project.detail', $project->id) }}"
                                                     class="btn btn-primary btn-sm"><i
                                                         class="bx bxs-show font-size-16 "></i></a></td>
                                         </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                             </table>
 
                         </div>

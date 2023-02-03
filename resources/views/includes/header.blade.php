@@ -161,38 +161,29 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
+                        <img class="rounded-circle header-profile-user" src="{{asset('assets/images/admin/'.auth()->user()->avatar)}}"
                             alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1">{{auth()->user()->name}}</span>
+                        <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i
+                        <a class="dropdown-item" href="{{ route('profile') }}"><i
                                 class="bx bx-user font-size-16 align-middle me-1"></i>
                             Profile</a>
-                        <a class="dropdown-item" href="#"><i
-                                class="bx bx-wallet font-size-16 align-middle me-1"></i> My
-                            Wallet</a>
-                        <a class="dropdown-item d-block" href="#"><span
-                                class="badge bg-success float-end">11</span><i
-                                class="bx bx-wrench font-size-16 align-middle me-1"></i> Settings</a>
-                        <a class="dropdown-item" href="#"><i
-                                class="bx bx-lock-open font-size-16 align-middle me-1"></i>
-                            Lock screen</a>
-                        <div class="dropdown-divider"></div>
-                       
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
-                                @csrf
-                            </form>
-                        
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
                     </div>
                 </div>
 
@@ -231,7 +222,7 @@
                 </button>
 
                 <!-- App Search-->
-                
+
 
                 {{-- <div class="dropdown dropdown-mega d-none d-lg-inline-block ms-2">
                     <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"

@@ -15,10 +15,10 @@
                             <div class="bg-login-overlay"></div>
                             <div class="position-relative">
                                 <h5 class="text-white font-size-20">Reset Password</h5>
-                                <p class="text-white-50 mb-0">Re-Password with Qovex.</p>
-
-                                <a href="index.html" class="logo logo-admin mt-4">
-                                    <img src="assets/images/logo-sm-dark.png" alt="" height="30">
+                                <p class="text-white-50 mb-0">
+                                    {{ config('app.name', 'Laravel') }}</p>
+                                <a href="#" class="logo logo-admin mt-4">
+                                    <img src="assets/images/logo-light.png" alt="" height="30">
                                 </a>
                             </div>
                         </div>
@@ -73,14 +73,12 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-
-                        <p>Remember It ? <a href="{{route('register')}}" class="fw-medium text-primary"> Sign In
-                                here</a> </p>
                         <p>©
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Qovex. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                            Themesbrand
+                            </script> {{ config('app.name', 'Laravel') }} Crafted with <i
+                                class="mdi mdi-heart text-danger"></i> by
+                            Legendesk
                         </p>
                     </div>
 

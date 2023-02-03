@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="page-title mb-0 font-size-18">create leader</h4>
+                        <h4 class="page-title mb-0 font-size-18">create member</h4>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action={{ url('/admin/leader/store') }} method="POST" enctype="multipart/form-data">
+                            <form action={{ url('/leader/member/store') }} method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-md-2 col-form-label">Name</label>
@@ -63,20 +63,12 @@
                                         </ul>
                                     </div>
 
-                                    @php
-                                        $teams = App\Models\Team::all();
-                                        // dd($teams);
-                                    @endphp
                                     <label class="col-md-2 col-form-label">Team</label>
                                     <div class="col-md-4">
-                                        <select class="form-select" aria-label="Default select example" name="team_id">
-                                            <option  selected disabled>Select Team</option>
-                                            @foreach ($teams as $team)
-                                                <option value="{{ $team->id }}">
-                                                    {{ $team->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control" type="" readonly
+                                            value="{{ Illuminate\Support\Str::title(auth()->user()->team->name) }}"
+                                            id="example-text-input">
+
                                     </div>
                                 </div>
 
@@ -137,7 +129,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12 d-flex justify-content-end d-grid gap-3">
-                                        <a href="{{ route('admin.leader') }}"
+                                        <a href="{{ route('leader.member') }}"
                                             class="col-md-2 btn btn-outline-secondary waves-effect">Cancel</a>
                                         <button type="submit"
                                             class="col-md-2 btn btn-outline-primary waves-effect ">Create</button>
