@@ -10,12 +10,12 @@
 
             <div class="mt-3">
 
-                @php
+                {{-- @php
                     $user = App\Models\User::with('role')->find(auth()->user()->id);
-                @endphp
-                <a href="#" class="text-dark fw-medium font-size-16">{{ $user->name }}</a>
+                @endphp --}}
+                <a href="#" class="text-dark fw-medium font-size-16">{{ auth()->user()->name }}</a>
 
-                <p class="text-body mt-1 mb-0 font-size-13">{{ $user->role->name }}</p>
+                <p class="text-body mt-1 mb-0 font-size-13">{{ auth()->user()->role->name }}</p>
 
             </div>
         </div>
@@ -64,7 +64,7 @@
                 @else
                 <li>
                     <a href="{{ route('member.project') }}" class=" waves-effect">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="far fa-file-alt"></i>
                         <span>Manage Project's</span>
                     </a>
                 </li>

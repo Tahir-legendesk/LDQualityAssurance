@@ -20,7 +20,7 @@
                             <table class="table table-striped mb-0">
                                 <tr>
                                     <td>Name</td>
-                                    <td>{{ $profile->name }}</td>
+                                    <td>{{ $profile->name ? Illuminate\Support\Str::title($profile->name) : ''}}</td>
                                     <td>Email</td>
                                     <td>{{ $profile->email }}</td>
                                 </tr>
@@ -30,12 +30,12 @@
                                     <td>Phone</td>
                                     <td>{{ $profile->phone ? $profile->phone : 'Null' }}</td>
                                     <td>Gender</td>
-                                    <td>{{ $profile->gender ? $profile->gender : 'Null' }}</td>
+                                    <td>{{ $profile->gender ? Illuminate\Support\Str::title($profile->gender) : 'Null' }}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Age</td>
-                                    <td>{{ $profile->dob ? $profile->dob : 'Null' }}</td>
+                                    <td>{{ $profile->dob ? \Carbon\Carbon::parse($profile->dob)->diff(\Carbon\Carbon::now())->format('%y years, %m months, %d days') : 'Null' }}</td>
                                     <td>Address</td>
                                     <td>{{ $profile->address ? $profile->address : 'Null' }}</td>
                                 </tr>

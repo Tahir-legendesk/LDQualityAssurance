@@ -157,7 +157,7 @@ class HomeController extends Controller
         $leaderUpdate->updated_at = now();
         // $leaderUpdate->save();
         if ($leaderUpdate->save()) {
-            Alert::success('Congrats', "You've Successfully update Leader");
+            Alert::info('Congrats', "You've Successfully update Leader");
             return redirect('admin/leader');
         }
     }

@@ -73,27 +73,34 @@
 
                                     </tr>
                                     <tr>
+                                        <td>Member Name</td>
+                                        <td>{{$task->user->name}}</td>
                                         <td>Type</td>
                                         <td>{{ Illuminate\Support\Str::title($task->type) }}</td>
+                                        
+                                        
+                                    </tr>
+
+                                    <tr>
                                         <td>Comment</td>
                                         <td>{{ $task->comments }}</td>
-                                        
-                                    </tr>
-
-                                    <tr>
                                         <td>Late reason</td>
                                         <td>{{ $task->late_reason }}</td>
-                                        <td>Created at</td>
-                                        <td>{{ \carbon\carbon::parse($task->created_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
-                                        </td>
+                                        
                                         
                                     </tr>
 
                                     <tr>
-                                        <td>Last updated</td>
-                                        <td>{{ \carbon\carbon::parse($task->updated_at)->diffForHumans(['parts' => 5, 'short' => true]) }}
+                                        <td>Created at</td>
+                                        <td>{{ $task->created_at ? $task->created_at->format('d M Y') : '' }}
                                         </td>
-                                        <td>Active</td>
+                                        <td>Last updated</td>
+                                        <td>{{ $task->updated_at ? $task->updated_at->format('d M Y') : '' }}
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr></tr>
+                                    <td>Active</td>
                                         <td>
                                             @if ($task->is_active != 1)
                                                 <i class="fas fa-times-circle fa-lg" style="color: red; "></i>
@@ -101,7 +108,6 @@
                                                 <i class="fas fa-check-circle fa-lg" style="color: green"></i>
                                             @endif
                                         </td>
-                                    </tr>
                                 </table>
                                 <hr>
                             @endforeach

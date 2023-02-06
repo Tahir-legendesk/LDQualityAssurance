@@ -41,7 +41,7 @@
 
                                 <tr>
                                     <td>Age</td>
-                                    <td>{{$member->dob}}</td>
+                                    <td>{{\Carbon\Carbon::parse($member->dob)->diff(\Carbon\Carbon::now())->format('%y years, %m months, %d days')}}</td>
                                     <td>Address</td>
                                     <td>{{$member->address}}</td>
                                 </tr>

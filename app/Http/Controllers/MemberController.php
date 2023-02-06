@@ -2,14 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
+use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
 
     public function dashboard()
     {
-        return view('member.dashboard');
+        $memberProjects = Project::whereHas('teams.users', function ($q) {
+            $q->where('id', Auth::id());
+        })->get();
+
+        $user = Auth::user();
+
+        $tasks = Task::with('project')->where('user_id', $user->id)->get();
+
+        $memberInnerPagesTasks = Task::where('user_id', $user->id)->where('type', 'INNER_PAGES')->count();
+
+        $memberNewTasks = Task::where('user_id', $user->id)->where('type', 'NEW')->count();
+
+        $memberRevisionTasks = Task::where('user_id', $user->id)->where('type', 'REVISION')->count();
+
+        $memberRedesignTasks = Task::where('user_id', $user->id)->where('type', 'REDESIGN')->count();
+
+        $memberRevampTasks = Task::where('user_id', $user->id)->where('type', 'REVAMP')->count();
+
+        return view('member.dashboard', get_defined_vars());
+    }
+
+    public function task()
+    {
+        return view('member.project-detail', get_defined_vars());
+    }
+
+    public function taskCreate(Request $request)
+    {
+        // dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required',
+            'comments' => 'required',
+            'project_name' => 'required',
+            'type' => 'required',
+        ]);
+
+        if (!$request->is_active) {
+
+            $isActive = $request->is_active;
+        } else {
+            $isActive = $request->is_active;
+        }
+        // dd($request->all());
+
+        $task = new Task();
+        $task->name = $request->name;
+        $task->project_id = $request->project_name;
+        $task->user_id = Auth::id();
+        $task->type = $request->type;
+        $task->comments = $request->comments;
+        $task->late_reason = $request->late_reason;
+        $task->is_active = $isActive ? 1 : 0;
+        $task->created_at = now();
+        $task->updated_at = null;
+        // dd($task);
+        if ($task->save()) {
+            // $project->teams()->attach(['team_id' => Auth::user()->team->id]);
+
+            Alert::success('Congrats', "You've Successfully Create Task");
+            return redirect('member/dashboard');
+        }
     }
     /**
      * Display a listing of the resource.
@@ -18,7 +82,11 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('member.project.index',get_defined_vars());
+        $memberProjects = Project::whereHas('teams.users', function ($q) {
+            $q->where('id', Auth::id());
+        })->get();
+
+        return view('member.project.index', get_defined_vars());
     }
 
     /**
@@ -28,7 +96,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.project.create');
     }
 
     /**
@@ -39,7 +107,33 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required',
+            'comments' => 'required',
+        ]);
+
+        if (!$request->is_active) {
+
+            $isActive = $request->is_active;
+        } else {
+            $isActive = $request->is_active;
+        }
+        // dd($request->all());
+
+        $project = new Project();
+        $project->name = $request->name;
+        $project->comments = $request->comments;
+        $project->is_active = $isActive ? 1 : 0;
+        $project->created_at = now();
+        $project->updated_at = null;
+        // $project->save();
+        if ($project->save()) {
+            $project->teams()->attach(['team_id' => Auth::user()->team->id]);
+
+            Alert::success('Congrats', "You've Successfully Create Project");
+            return redirect('member/project');
+        }
     }
 
     /**
@@ -50,7 +144,13 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::with(['tasks' => function ($q) {
+            $q->with('user');
+        }, 'teams' => function ($q) {
+            $q->with('users');
+        }])->find($id);
+        // dd($project);
+        return view('member.project.detail', get_defined_vars());
     }
 
     /**
@@ -61,7 +161,8 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        return view('member.project.edit', get_defined_vars());
     }
 
     /**
@@ -73,7 +174,30 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'comments' => 'required',
+        ]);
+
+        if (!$request->is_active) {
+
+            $isActive = $request->is_active;
+        } else {
+            $isActive = $request->is_active;
+        }
+        // dd($request->all());
+
+        $projectUpdate = Project::find($id);
+        $projectUpdate->name = $request->name;
+        $projectUpdate->comments = $request->comments;
+        $projectUpdate->late_reason = $request->late_reason;
+        $projectUpdate->is_active = $isActive ? 1 : 0;
+        $projectUpdate->updated_at = now();
+        // $projectUpdate->save();
+        if ($projectUpdate->save()) {
+            Alert::info('Congrats', "You've Successfully Update Project");
+            return redirect('member/project');
+        }
     }
 
     /**
@@ -84,6 +208,10 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $projectDelete = Project::find($id);
+        $projectDelete->delete();
+        $projectDelete->teams()->detach(['team_id' => Auth::user()->team->id]);
+        Alert::warning('Congrats', "You've Successfully Delete Project");
+        return redirect('member/project');
     }
 }

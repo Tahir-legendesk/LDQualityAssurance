@@ -51,8 +51,8 @@
                                                     <i class="fas fa-check-circle fa-lg" style="color: green"></i>
                                                 @endif
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($team->created_at)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($team->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
+                                            <td>{{ $team->created_at ? $team->created_at->format('d M Y') : '' }}</td>
+                                            <td>{{ $team->updated_at ? $team->updated_at->format('d M Y') : ''}}</td>
                                             {{-- {{dd($team->updated_at)}} --}}
                                             <td>
                                                 <div class="button-items">

@@ -63,16 +63,24 @@ Route::group(['middleware' => ['leader']], function () {
     Route::get('/leader/member/{id}/edit', [LeaderController::class, 'edit'])->name('leader.member.edit');
     Route::post('/leader/member/{id}/update', [LeaderController::class, 'update'])->name('leader.member.update');
     Route::get('/leader/member/{id}/delete', [LeaderController::class, 'destroy'])->name('leader.member.delete');
-    
+
 });
 //leader routes end
 
 //member routes start
 Route::group(['middleware' => ['member']], function () {
     Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
+    Route::get('/member/task', [MemberController::class, 'task'])->name('member.task');
+    Route::post('/member/task/create', [MemberController::class, 'taskCreate'])->name('member.task.create');
+
 
     Route::get('/member/project', [MemberController::class, 'index'])->name('member.project');
+    Route::get('/member/project/create', [MemberController::class, 'create'])->name('member.project.create');
+    Route::post('/member/project/store', [MemberController::class, 'store'])->name('member.project.store');
+    Route::get('/member/project/{id}/detail', [MemberController::class, 'show'])->name('member.project.show');
+    Route::get('/member/project/{id}/edit', [MemberController::class, 'edit'])->name('member.project.edit');
+    Route::post('/member/project/{id}/update', [MemberController::class, 'update'])->name('member.project.update');
+    Route::get('/member/project/{id}/delete', [MemberController::class, 'destroy'])->name('member.project.delete');
 
-    
 });
 //member routes end

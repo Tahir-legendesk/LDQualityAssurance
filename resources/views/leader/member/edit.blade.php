@@ -100,10 +100,10 @@
                                     <label class="col-md-2 col-form-label">Gender</label>
                                     <div class="col-md-4">
                                         <select class="form-select" aria-label="Default select example" name="gender">
-                                            <option disabled>Select gender</option>
-                                            <option value="MALE" @if ($member->gender == 'MALE') selected @endif>Male
+                                            <option selected disabled>Select gender</option>
+                                            <option value="MALE" @if ($member->gender == 'MALE')  @endif>Male
                                             </option>
-                                            <option value="FEMALE" @if ($member->gender == 'FEMALE') selected @endif>Female
+                                            <option value="FEMALE" @if ($member->gender == 'FEMALE')  @endif>Female
                                             </option>
                                         </select>
                                     </div>

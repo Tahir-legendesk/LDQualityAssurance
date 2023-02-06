@@ -154,8 +154,9 @@
                                         <th>RA</th>
                                         <th>Comments</th>
                                         <th>Late Reason</th>
+                                        <th>Created At</th>
                                         <th>Last Updated</th>
-                                        <th>Action</th>
+                                        <th>Operation</th>
                                     </tr>
                                 </thead>
 
@@ -167,17 +168,19 @@
                                             </td>
                                             @foreach ($project->teams as $team)
                                                 @foreach ($team->users as $user)
-                                                    <td>{{ $user->name ? $user->name : '' }}</td>
+                                                    <td>{{ $user->name ? $user->name : 'null' }}</td>
                                                 @endforeach
                                             @endforeach
-                                            <td>{{ \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') : '' }}
+                                            <td>{{ $project->comments ? \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') : 'Null' }}
                                             </td>
-                                            <td>{{ \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : '' }}
+                                            <td>{{ $project->late_reason ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : '' }}
                                             </td>
-                                            <td>{{ \carbon\carbon::parse($project->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
+                                            <td>{{ $project->created_at ? $project->created_at->format('d M Y') : '' }}
+                                            </td>
+                                            <td>{{ $project->updated_at ? $project->updated_at->format('d M Y') : '' }}
                                             </td>
                                             <td><a href="{{ route('admin.project.detail', $project->id) }}"
-                                                    class="btn btn-primary btn-sm"><i
+                                                    class="btn btn-outline-primary waves-effect"><i
                                                         class="bx bxs-show font-size-16 "></i></a></td>
                                         </tr>
                                     @endforeach

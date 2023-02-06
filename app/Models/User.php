@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
     public function scopeIsActive($query)
     {
         return $query->where('is_active', true);

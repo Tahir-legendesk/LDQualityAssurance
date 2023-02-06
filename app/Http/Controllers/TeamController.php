@@ -113,7 +113,7 @@ class TeamController extends Controller
         $team->updated_at = now();
         // $team->save();
         if ($team->save()) {
-            Alert::success('Congrats', "You've Successfully Update " . $request->name . " Team");
+            Alert::info('Congrats', "You've Successfully Update " . $request->name . " Team");
             return redirect('admin/teams');
         }
     }

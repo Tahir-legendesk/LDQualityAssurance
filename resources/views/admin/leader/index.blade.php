@@ -43,18 +43,18 @@
                                 <tbody>
                                     @foreach ($leaders as $leader)
                                         <tr>
-                                            <td>{{ $leader->name }}</td>
-                                            <td>{{ $leader->team->name }}</td>
+                                            <td>{{ Illuminate\Support\Str::title($leader->name) }}</td>
+                                            <td>{{ Illuminate\Support\Str::title($leader->team->name) }}</td>
                                             <td>{{ $leader->email }}</td>
                                             <td>{{ $leader->phone }}</td>
                                             <td>{{ Illuminate\Support\Str::title($leader->gender) }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($leader->dob)->diffForHumans(['parts' => 3, 'short' => true]) }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($leader->dob)->age.' years' }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($leader->address, 50, $end = '....') }}
                                             </td>
                                             <td>
                                                 <div class="button-items">
                                                     <a href="{{ route('admin.leader.show', $leader->id) }}"
-                                                        class="btn btn-outline-warning waves-effect">
+                                                        class="btn btn-outline-info waves-effect">
                                                         <i class="bx bxs-show font-size-16 "></i>
                                                     </a>
 

@@ -21,27 +21,27 @@
                             <table class="table table-striped mb-0">
                                 <tr>
                                     <td>Name</td>
-                                    <td>{{$leaderDetail->name}}</td>
+                                    <td>{{Illuminate\Support\Str::title($leaderDetail->name)}}</td>
                                     <td>Email</td>
                                     <td>{{$leaderDetail->email}}</td>
                                 </tr>
                                 <tr>
                                     <td>Member type</td>
-                                    <td>{{$leaderDetail->role->name}}</td>
+                                    <td>{{Illuminate\Support\Str::title($leaderDetail->role->name)}}</td>
                                     <td>Team name</td>
-                                    <td>{{$leaderDetail->team->name}}</td>
+                                    <td>{{Illuminate\Support\Str::title($leaderDetail->team->name)}}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Phone</td>
                                     <td>{{$leaderDetail->phone}}</td>
                                     <td>Gender</td>
-                                    <td>{{$leaderDetail->gender}}</td>
+                                    <td>{{Illuminate\Support\Str::title($leaderDetail->gender)}}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Age</td>
-                                    <td>{{$leaderDetail->dob}}</td>
+                                    <td>{{\Carbon\Carbon::parse($leaderDetail->dob)->diff(\Carbon\Carbon::now())->format('%y years, %m months, %d days')}}</td>
                                     <td>Address</td>
                                     <td>{{$leaderDetail->address}}</td>
                                 </tr>

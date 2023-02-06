@@ -105,7 +105,7 @@ class ProfileController extends Controller
         $profile->updated_at = now();
 
         if ($profile->save()) {
-            Alert::success('Congrats', "You've Successfully update profile");
+            Alert::info('Congrats', "You've Successfully update profile");
             return redirect('profile');
         }
     }

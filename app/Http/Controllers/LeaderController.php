@@ -55,9 +55,11 @@ class LeaderController extends Controller
 
     public function projectDetail($id)
     {
-        $project = Project::with(['teams' => function ($q) {
-            $q->with('users');
-        }])->find($id);
+        $project = Project::find($id);
+        // with(['teams' => function ($q) {
+        //     $q->with('users');
+        // }])->find($id);
+        // dd($project);
 
         return view('leader.project-detail', get_defined_vars());
     }
@@ -196,7 +198,7 @@ class LeaderController extends Controller
         $memberUpdate->updated_at = now();
         // $memberUpdate->save();
         if ($memberUpdate->save()) {
-            Alert::success('Congrats', "You've Successfully Update Member");
+            Alert::info('Congrats', "You've Successfully Update Member");
             return redirect('leader/member');
         }
     }

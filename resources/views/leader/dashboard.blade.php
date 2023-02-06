@@ -167,24 +167,24 @@
                                     {{-- {{dd($leaderProjects->team->projects)}} --}}
                                         <tr>
                                             <td>{{ $leaderProject->id ? $leaderProject->id : '' }}</td>
-                                            <td>{{ $leaderProject->name ? $leaderProject->name : '' }}</td>
+                                            <td>{{ $leaderProject->name ? Illuminate\Support\Str::title($leaderProject->name) : '' }}</td>
                                             </td>
                                             {{-- @foreach ($project->teams as $team)
                                                 @foreach ($team->users as $user)
                                                     <td>{{ $user->name ? $user->name : '' }}</td>
                                                 @endforeach
                                             @endforeach --}}
-                                            <td>{{ \Illuminate\Support\Str::limit($leaderProject->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($leaderProject->comments, 20, $end = '....') : '' }}
+                                            <td>{{ $leaderProject->comments ? \Illuminate\Support\Str::limit($leaderProject->comments, 20, $end = '....') : '' }}
                                             </td>
-                                            <td>{{ \Illuminate\Support\Str::limit($leaderProject->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($leaderProject->late_reason, 20, $end = '....') : '' }}
+                                            <td>{{ $leaderProject->late_reason ? \Illuminate\Support\Str::limit($leaderProject->late_reason, 20, $end = '....') : '' }}
                                             </td>
                                             {{-- {{dd($leaderProject->updated_at)}} --}}
-                                            <td>{{ \carbon\carbon::parse($leaderProject->created_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
+                                            <td>{{ $leaderProject->created_at ? $leaderProject->created_at->format('d M Y') : '' }}
                                             </td>
-                                            <td>{{ \carbon\carbon::parse($leaderProject->updated_at)->diffForHumans(['parts' => 3, 'short' => true]) }}
+                                            <td>{{ $leaderProject->updated_at ? $leaderProject->updated_at->format('d M Y') : '' }}
                                             </td>
                                             <td><a href="{{ route('leader.project.detail', $leaderProject->id) }}"
-                                                    class="btn btn-primary btn-sm"><i
+                                                    class="btn btn-outline-primary waves-effect"><i
                                                         class="bx bxs-show font-size-16 "></i></a></td>
                                         </tr>
                                     @endforeach

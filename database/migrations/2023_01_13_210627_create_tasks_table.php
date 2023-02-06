@@ -16,6 +16,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
+            $table->foreignId('user_id');
             $table->string('name');
             $table->enum('type',['NEW','REVAMP','REDESIGN','INNER_PAGES','REVISION']);
             $table->longText('comments')->nullable();
