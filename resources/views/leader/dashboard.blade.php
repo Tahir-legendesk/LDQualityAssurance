@@ -151,7 +151,7 @@
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Order Id</th>
                                         <th>Name</th>
                                         <th>Comments</th>
                                         <th>Late Reason</th>
@@ -166,7 +166,7 @@
                                     @foreach ($leaderProjects->team->projects as $leaderProject)
                                     {{-- {{dd($leaderProjects->team->projects)}} --}}
                                         <tr>
-                                            <td>{{ $leaderProject->id ? $leaderProject->id : '' }}</td>
+                                            <td>{{ $leaderProject->order_id ? $leaderProject->order_id : '' }}</td>
                                             <td>{{ $leaderProject->name ? Illuminate\Support\Str::title($leaderProject->name) : '' }}</td>
                                             </td>
                                             {{-- @foreach ($project->teams as $team)

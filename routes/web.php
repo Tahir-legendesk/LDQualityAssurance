@@ -72,7 +72,8 @@ Route::group(['middleware' => ['member']], function () {
     Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
     Route::get('/member/task', [MemberController::class, 'task'])->name('member.task');
     Route::post('/member/task/create', [MemberController::class, 'taskCreate'])->name('member.task.create');
-
+    Route::get('/member/task/{id}/delete', [MemberController::class, 'taskDelete'])->name('member.task.delete');
+    Route::get('/member/dashboard/filter', [MemberController::class, 'dateFilter'])->name('member.dashboard.filter');
 
     Route::get('/member/project', [MemberController::class, 'index'])->name('member.project');
     Route::get('/member/project/create', [MemberController::class, 'create'])->name('member.project.create');

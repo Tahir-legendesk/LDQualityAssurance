@@ -22,7 +22,7 @@
 
     </div>
     @include('../includes/scripts')
-    @yield('custom_script')
+    @stack('custom_script')
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Alert;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,10 @@ class HomeController extends Controller
                     ->where('is_leader', true);
             });
         }])->get();
+        $leaders = User::isLeader()->count();
+        $members = User::isMember()->count();
+
+        $teams = Team::count();
         $tasks = Task::get();
         // dd($projects);
         $new = $tasks->where('type', 'NEW')->count();

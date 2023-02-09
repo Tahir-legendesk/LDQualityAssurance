@@ -142,21 +142,58 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-head">
-                            <div class="custom-title d-flex align-items-center justify-content-between">
+                            <div class="custom-title d-flex align-items-start justify-content-between">
                                 <h4 class="card-title">All Tasks</h4>
                                 {{-- <div class="button-items text-end mb-1"> --}}
+                                
+                                <form action="{{ url('/member/dashboard/filter') }}" method="get">
+                                    <div class="mb-3 row">
+                                        <label for="example-text-input" class="col-md-2 col-form-label">Start Date</label>
+                                        <div class="col-md-3">
+                                            <input class="form-control" type="date" name="start_date"
+                                                placeholder="Jhon deo" id="example-text-input">
+                                            {{-- <ul class="parsley-errors-list filled" id="parsley-id-39">
+                                                <li class="parsley-required">
+                                                    @error('name')
+                                                        {{ $errors->first('name') }}
+                                                    @enderror
+                                                </li>
+                                            </ul> --}}
+                                        </div>
+
+
+                                        <label for="example-search-input" class="col-md-2 col-form-label">End Date</label>
+                                        <div class="col-md-3">
+                                            <input class="form-control" type="date" name="end_date"
+                                                placeholder="simply dummy text of the printing and typesetting industry"
+                                                id="example-search-input">
+                                            {{-- <ul class="parsley-errors-list filled" id="parsley-id-39">
+                                                <li class="parsley-required">
+                                                    @error('comments')
+                                                        {{ $errors->first('comments') }}
+                                                    @enderror
+                                                </li>
+                                            </ul> --}}
+                                        </div>
+                                        <div class="col-md-2">
+
+                                            <button type="submit"
+                                                class=" btn btn-outline-success waves-effect">Submit</button>
+                                        </div>
+
+                                    </div>
+                                </form>
                                 <a href="#" class="col-md-2 btn btn-outline-primary waves-effect mb-2"
-                                    data-bs-toggle="modal" data-bs-target="#myModal">
-                                    <i class="bx bx-task font-size-16 align-middle"></i> Create Task
-                                </a>
+                                data-bs-toggle="modal" data-bs-target="#myModal">
+                                <i class="bx bx-task font-size-16 align-middle"></i> Create Task
+                            </a>
                                 {{-- </div> --}}
                             </div>
-                            <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Project Name</th>
+                                        <th>Order Id</th>
                                         <th>Name</th>
                                         <th>Type</th>
                                         <th>Comments</th>
@@ -169,17 +206,16 @@
                                 <tbody>
                                     @foreach ($tasks as $task)
                                         <tr>
-                                            <td>{{ $task->id ? $task->id : '' }}</td>
-                                            <td>{{ $task->project->name ? $task->project->name : '' }}</td>
+                                            <td>{{ $task->project->order_id ? $task->project->order_id : 'null' }}</td>
                                             <td>{{ $task->name ? $task->name : '' }}</td>
-                                            <td>{{ $task->type ? Illuminate\Support\Str::title($task->type) : '' }}</td>
+                                            <td>{{ $task->type ? Illuminate\Support\Str::title(str_replace('_', ' ', $task->type)) : '' }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($task->comments, 20, $end = '....') ? \Illuminate\Support\Str::limit($task->comments, 20, $end = '....') : '' }}
                                             </td>
                                             <td>{{ \Illuminate\Support\Str::limit($task->late_reason, 20, $end = '....') ? \Illuminate\Support\Str::limit($task->late_reason, 20, $end = '....') : '' }}
                                             </td>
                                             <td>{{ $task->created_at ? $task->created_at->format('d M Y') : $task->created_at }}
                                             </td>
-                                            <td> <a href="{{ route('member.task', $task->id) }}"
+                                            <td> <a href="{{ route('member.task.delete', $task->id) }}"
                                                     class="btn btn-outline-danger btn-sm"><i
                                                         class="bx bxs-trash font-size-16 "></i></a>
                                             </td>
@@ -202,16 +238,36 @@
                         <div class="modal-header">
                             <h5 class="modal-title mt-0" id="myModalLabel">Create Task
                             </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        <form action="{{route('member.task.create')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('member.task.create') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
+
+                                <div class="mb-3 row">
+                                    <label for="example-search-input" class="col-md-2 col-form-label">Order Id</label>
+                                    <div class="col-md-10">
+                                        {{-- {{dd($memberProjects)}} --}}
+
+                                        <input class="form-control" type="text" name="order_id" placeholder="1234"
+                                            required id="example-search-input">
+
+                                        <ul class="parsley-errors-list filled" id="parsley-id-39">
+                                            <li class="parsley-required">
+                                                @error('order_id')
+                                                    {{ $errors->first('order_id') }}
+                                                @enderror
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3 row">
                                     <label for="example-text-input" class="col-md-2 col-form-label">Name</label>
                                     <div class="col-md-10">
                                         <input class="form-control" type="text" name="name" placeholder="Jhon deo"
-                                            id="example-text-input">
+                                            required id="example-text-input">
                                         <ul class="parsley-errors-list filled" id="parsley-id-39">
                                             <li class="parsley-required">
                                                 @error('name')
@@ -222,35 +278,13 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3 row">
-                                    <label for="example-search-input" class="col-md-2 col-form-label">Project</label>
-                                    <div class="col-md-10">
-                                        {{-- {{dd($memberProjects)}} --}}
 
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="project_name">
-                                            <option selected disabled>Select project</option>
-                                            @foreach ($memberProjects as $memberProject)
-                                                <option value="{{ $memberProject->id }}">
-                                                    {{ '(P-Id-' . $memberProject->id . ') ' . $memberProject->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                        <ul class="parsley-errors-list filled" id="parsley-id-39">
-                                            <li class="parsley-required">
-                                                @error('project_name')
-                                                    {{ $errors->first('project_name') }}
-                                                @enderror
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
 
                                 <div class="mb-3 row">
                                     <label for="example-search-input" class="col-md-2 col-form-label">Type</label>
                                     <div class="col-md-10">
-                                        <select class="form-select" aria-label="Default select example" name="type">
+                                        <select class="form-select" aria-label="Default select example" name="type"
+                                            required>
                                             <option selected disabled>Select type</option>
                                             <option value="NEW">New</option>
                                             <option value="INNER_PAGES">Inner Pages</option>
@@ -271,7 +305,7 @@
                                 <div class="mb-3 row">
                                     <label for="example-search-input" class="col-md-2 col-form-label">Comment</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" name="comments"
+                                        <input class="form-control" type="text" name="comments" required
                                             placeholder="simply dummy text of the printing and typesetting industry"
                                             id="example-search-input">
                                         <ul class="parsley-errors-list filled" id="parsley-id-39">
@@ -330,3 +364,14 @@
     </div>
     <!-- End Page-content -->
 @endsection
+
+{{-- @push('custom_script')
+<script>
+    function datefilter(){
+        if (condition) {
+            
+        }
+    console.log('hello');
+}
+</script>
+@endpush --}}

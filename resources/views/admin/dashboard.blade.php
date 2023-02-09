@@ -52,19 +52,74 @@
                             <div class="d-flex align-items-start">
                                 <div class="avatar-sm font-size-20 me-3">
                                     <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-users"></i>
                                     </span>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="font-size-16 mt-2">Total New Tasks</div>
-
+                                    <div class="font-size-16 mt-2">Total Teams</div>
                                 </div>
-                                <h4 class="mt-4">{{ $new }}</h4>
+                                <h4 class="mt-4">{{ $teams }}</h4>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="avatar-sm font-size-20 me-3">
+                                    <span class="avatar-title bg-soft-primary text-primary rounded">
+                                        <i class="fas fa-tasks"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-size-16 mt-2">Total Tasks</div>
+                                </div>
+                                <h4 class="mt-4">{{ $tasks->count() }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="avatar-sm font-size-20 me-3">
+                                    <span class="avatar-title bg-soft-primary text-primary rounded">
+                                        <i class="fas fa-user-tie"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-size-16 mt-2">Total Leaders</div>
+                                </div>
+                                <h4 class="mt-4">{{ $leaders }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="row">
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="avatar-sm font-size-20 me-3">
+                                    <span class="avatar-title bg-soft-primary text-primary rounded">
+                                        <i class="fas fa-user-friends"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-size-16 mt-2">Total Members</div>
+                                </div>
+                                <h4 class="mt-4">{{ $members }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xl-3">
                     <div class="card">
                         <div class="card-body">
@@ -100,8 +155,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-xl-3">
                     <div class="card">
                         <div class="card-body">
@@ -137,6 +190,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="avatar-sm font-size-20 me-3">
+                                    <span class="avatar-title bg-soft-primary text-primary rounded">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-size-16 mt-2">Total New Tasks</div>
+
+                                </div>
+                                <h4 class="mt-4">{{ $new }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -149,7 +220,7 @@
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Order Id</th>
                                         <th>Name</th>
                                         <th>RA</th>
                                         <th>Comments</th>
@@ -163,8 +234,8 @@
                                 <tbody>
                                     @foreach ($projects as $project)
                                         <tr>
-                                            <td>{{ $project->id ? $project->id : '' }}</td>
-                                            <td>{{ $project->name ? $project->name : '' }}</td>
+                                            <td>{{ $project->order_id ? $project->order_id : '' }}</td>
+                                            <td>{{ $project->name ? $project->name : 'Null' }}</td>
                                             </td>
                                             @foreach ($project->teams as $team)
                                                 @foreach ($team->users as $user)
@@ -173,11 +244,11 @@
                                             @endforeach
                                             <td>{{ $project->comments ? \Illuminate\Support\Str::limit($project->comments, 20, $end = '....') : 'Null' }}
                                             </td>
-                                            <td>{{ $project->late_reason ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : '' }}
+                                            <td>{{ $project->late_reason ? \Illuminate\Support\Str::limit($project->late_reason, 20, $end = '....') : 'Null' }}
                                             </td>
-                                            <td>{{ $project->created_at ? $project->created_at->format('d M Y') : '' }}
+                                            <td>{{ $project->created_at ? $project->created_at->format('d M Y') : 'Null' }}
                                             </td>
-                                            <td>{{ $project->updated_at ? $project->updated_at->format('d M Y') : '' }}
+                                            <td>{{ $project->updated_at ? $project->updated_at->format('d M Y') : 'Null' }}
                                             </td>
                                             <td><a href="{{ route('admin.project.detail', $project->id) }}"
                                                     class="btn btn-outline-primary waves-effect"><i

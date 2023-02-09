@@ -17,18 +17,18 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-head">
-                            <div class="button-items text-end mb-1">
+                            {{-- <div class="button-items text-end mb-1">
                                 <a href="{{ route('member.project.create') }}"
                                     class="col-md-2 btn btn-outline-primary waves-effect">
                                     <i class="fas fa-file-medical font-size-16 align-middle"></i> Create Project
                                 </a>
-                            </div>
+                            </div> --}}
 
                             <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Order Id</th>
                                         <th>Name</th>
                                         <th>Comment</th>
                                         <th>Late Reason</th>
@@ -42,11 +42,11 @@
                                 <tbody>
                                     @foreach ($memberProjects as $memberProject)
                                         <tr>
-                                            <td>{{ $memberProject->id }}</td>
+                                            <td>{{ $memberProject->order_id }}</td>
                                             <td>{{ $memberProject->name }}</td>
-                                            <td>{{ \Illuminate\Support\Str::limit($memberProject->comments, 50, $end = '....') }}
+                                            <td>{{ \Illuminate\Support\Str::limit($memberProject->comments, 30, $end = '....') }}
                                             </td>
-                                            <td>{{ \Illuminate\Support\Str::limit($memberProject->late_reason, 50, $end = '....') }}
+                                            <td>{{ \Illuminate\Support\Str::limit($memberProject->late_reason, 30, $end = '....') }}
                                             </td>
                                             <td>
                                                 @if ($memberProject->is_active != 1)
@@ -55,9 +55,11 @@
                                                     <i class="fas fa-check-circle fa-lg" style="color: green"></i>
                                                 @endif
                                             </td>
-                                            <td>{{ $memberProject->created_at ? $memberProject->created_at->format('d M Y') : $memberProject->created_at}}
+                                            <td>{{ $memberProject->created_at ? $memberProject->created_at->format('d M Y') : ''}}
                                             </td>
-                                            <td>{{ $memberProject->updated_at ? $memberProject->updated_at->format('d M Y') : $memberProject->updated_at}}
+                                            <td>{{ $memberProject->updated_at ? $memberProject->updated_at->format('d M Y') : ''}}
+                                            {{-- // ? $memberProject->updated_at->format('d M Y') : '' --}}
+                                            {{-- }} --}}
                                             </td>
                                             <td>
                                                 <div class="button-items">

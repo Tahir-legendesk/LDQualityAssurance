@@ -75,7 +75,7 @@
                                         <td>Member Name</td>
                                         <td>{{ $task->user->name }}</td>
                                         <td>Type</td>
-                                        <td>{{ Illuminate\Support\Str::title($task->type) }}</td>
+                                        <td>{{ Illuminate\Support\Str::title(str_replace('_', ' ', $task->type)) }}</td>
                                         
                                     </tr>
 
